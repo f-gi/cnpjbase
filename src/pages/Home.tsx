@@ -2,12 +2,14 @@ import { Typography, TextField, Pagination, Box, Container, Button, Skeleton } f
 import { useCompanies } from '../hooks/useCompanies';
 import { useEffect, useState } from 'react';
 import { CompanyCard } from '../components/CompanyCard';
+import { RevenueModal } from '../components/RevenueModal';
 
 export default function Home() {
   const { data, isLoading, error } = useCompanies();
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [page, setPage] = useState(1);
+  const [selectedCnpj, setSelectedCnpj] = useState<string | null>(null);
   const itemsPerPage = 12;
 
   useEffect(() => {
@@ -132,7 +134,7 @@ export default function Home() {
             <CompanyCard
               key={`${empresa.cnpj}-${index}`}
               empresa={empresa}
-              onClick={() => console.log('Abrir modal para:', empresa.cnpj)}
+              onClick={() => setSelectedCnpj(empresa.cnpj)}
             />
           ))}
       </Box>
@@ -145,6 +147,12 @@ export default function Home() {
           sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}
         />
       )}
+
+      <RevenueModal
+        cnpj={selectedCnpj}
+        open={!!selectedCnpj}
+        onClose={() => setSelectedCnpj(null)}
+      />
     </Container>
   );
 }

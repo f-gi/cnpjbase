@@ -20,10 +20,11 @@ export const getCompanies = async () => {
 
 export const getCompanyRevenue = async (cnpj: string) => {
   try {
-    const response = await api.get(`/companies/cnpj/${cnpj}`);
+    const cleanCnpj = cnpj.replace(/\D/g, '');
+    const response = await api.get(`/companies/cnpj/${cleanCnpj}`);
     return response.data;
   } catch (error) {
     console.error('[getCompanyRevenue] Erro ao buscar receita:', error);
-    throw new Error('Erro ao buscar receita da empresa');
+    throw new Error('Erro ao buscar rendimento da empresa');
   }
 };
