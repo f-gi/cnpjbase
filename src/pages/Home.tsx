@@ -1,19 +1,32 @@
 import { Typography, TextField, Pagination, Box, Container, Button, Skeleton } from '@mui/material';
 import { useCompanies } from '../hooks/useCompanies';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CompanyCard } from '../components/CompanyCard';
 
 export default function Home() {
   const { data, isLoading, error } = useCompanies();
   const [search, setSearch] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const [page, setPage] = useState(1);
   const itemsPerPage = 12;
+
+  useEffect(() => {
+    setPage(1);
+  }, [debouncedSearch]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 300);
+
+    return () => clearTimeout(timeout);
+  }, [search]);
 
   const filtered =
     data?.filter(
       (empresa: any) =>
-        empresa.nomeFantasia?.toLowerCase().includes(search.toLowerCase()) ||
-        empresa.cnpj.includes(search)
+        empresa.nomeFantasia?.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        empresa.cnpj.includes(debouncedSearch)
     ) || [];
 
   const paginated = filtered.slice((page - 1) * itemsPerPage, page * itemsPerPage);

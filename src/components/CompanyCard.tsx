@@ -22,10 +22,10 @@ export function CompanyCard({ empresa, onClick }: CompanyCardProps) {
     >
       <CardContent sx={{ flexGrow: 1 }}>
         <Typography variant="h6" noWrap gutterBottom>
-          {empresa.nomeFantasia || 'Sem nome'}
+          {empresa.nomeFantasia || '-'}
         </Typography>
         <Typography variant="body2" noWrap>
-          {empresa.razaoSocial || 'Sem razão social'}
+          {empresa.razaoSocial || '-'}
         </Typography>
         <Typography variant="body2" sx={{ mt: 1 }}>
           CNPJ: {empresa.cnpj}
