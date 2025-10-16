@@ -27,3 +27,6 @@ dist-ssr
 *.sln
 *.sw?
 
+# Cypress screenshots e vídeos
+cypress/screenshots/
+cypress/videos/
