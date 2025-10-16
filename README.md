@@ -1,4 +1,4 @@
-# CNP Base
+# CNPJ Base
 
 React application for listing companies.
 
