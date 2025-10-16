@@ -3,6 +3,7 @@ import { useCompanies } from '../hooks/useCompanies';
 import { useEffect, useState } from 'react';
 import { CompanyCard } from '../components/CompanyCard';
 import { RevenueModal } from '../components/RevenueModal';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
   const { data, isLoading, error } = useCompanies();
@@ -11,6 +12,7 @@ export default function Home() {
   const [page, setPage] = useState(1);
   const [selectedCnpj, setSelectedCnpj] = useState<string | null>(null);
   const itemsPerPage = 12;
+  const navigate = useNavigate();
 
   useEffect(() => {
     setPage(1);
@@ -89,7 +91,7 @@ export default function Home() {
         <Typography variant="h4" component="h1">
           Empresas
         </Typography>
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={() => navigate('/register')}>
           Cadastrar nova empresa
         </Button>
       </Box>

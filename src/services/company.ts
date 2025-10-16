@@ -28,3 +28,13 @@ export const getCompanyRevenue = async (cnpj: string) => {
     throw new Error('Erro ao buscar rendimento da empresa');
   }
 };
+
+export const registerCompany = async (data: any) => {
+  try {
+    const response = await api.post('/companies', data);
+    return response.data;
+  } catch (error) {
+    console.error('[registerCompany] Erro ao cadastrar empresa:', error);
+    throw new Error('Erro ao cadastrar empresa');
+  }
+};
